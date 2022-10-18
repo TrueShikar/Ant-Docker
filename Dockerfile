@@ -4,17 +4,17 @@
 
 FROM ubuntu:20.04
 
-ARG AntMediaServer=https://github.com/ant-media/Ant-Media-Server/releases/download/ams-v2.4.3/ant-media-server-community-2.4.3.zip
 
 ARG BranchName=master
 
 #Running update and install makes the builder not to use cache which resolves some updates
 RUN apt-get update && apt-get install -y curl wget iproute2 cron logrotate
 
+RUN wget -O ant.zip https://github.com/ant-media/Ant-Media-Server/releases/download/ams-v2.4.3/ant-media-server-community-2.4.3.zip
 RUN wget https://raw.githubusercontent.com/ant-media/Scripts/${BranchName}/install_ant-media-server.sh \
     && chmod 755 install_ant-media-server.sh
 
-RUN ./install_ant-media-server.sh -i ${AntMediaServer} -s false
+RUN ./install_ant-media-server.sh -i ant.zip -s false
 
 
 # Options 
